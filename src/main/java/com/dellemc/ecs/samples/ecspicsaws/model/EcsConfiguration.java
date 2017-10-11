@@ -41,4 +41,23 @@ public class EcsConfiguration {
     public String toCookie() {
         return endpoint + "|" + accessKey + "|" + secretKey + "|" + bucketName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EcsConfiguration that = (EcsConfiguration) o;
+
+        if (!endpoint.equals(that.endpoint)) return false;
+        if (!accessKey.equals(that.accessKey)) return false;
+        return secretKey.equals(that.secretKey);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = endpoint.hashCode();
+        result = 31 * result + accessKey.hashCode();
+        result = 31 * result + secretKey.hashCode();
+        return result;
+    }
 }
