@@ -36,7 +36,7 @@ public class ConfigurationController {
                                     @ModelAttribute("message") String message,
                                     @ModelAttribute("error") String error) {
 
-        EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
+        EcsConfiguration config = getConfig(session, configCookie);
         if(config == null) {
             config = new EcsConfiguration();
             session.setAttribute("config", config);
@@ -62,13 +62,18 @@ public class ConfigurationController {
                                       HttpSession session,
                                       RedirectAttributes attrs,
                                       HttpServletResponse response) {
-        EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
+        EcsConfiguration config = getConfig(session, "");
         config.setConfiguration(endpoint, accessKey, secretKey, bucketName);
 
         StringBuilder message = new StringBuilder();
         message.append("Configuration Updated.");
 
         AmazonS3 s3 = S3Factory.getInstance().getClient(config);
+
+        // Test credentials. NOTE: this call is not 'free' so only do it when you first configure connections.  If
+        // there is something wrong with the credentials it should throw an exception here.
+        s3.listBuckets();
+
         if(!s3.doesBucketExist(bucketName)) {
             s3.createBucket(bucketName);
             message.append(" Created bucket " + bucketName);
@@ -83,5 +88,20 @@ public class ConfigurationController {
         log.debug("Set Cookie: " + c.toString());
 
         return "redirect:/";
+    }
+
+    private EcsConfiguration getConfig(HttpSession session, String configCookie) {
+        EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
+
+        if(config == null) {
+            config = new EcsConfiguration();
+            session.setAttribute("config", config);
+            // Load it from a cookie if possible.
+            if(!("".equals(configCookie))) {
+                config.fromCookie(configCookie);
+            }
+        }
+
+        return config;
     }
 }
