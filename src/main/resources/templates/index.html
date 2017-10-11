@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ECS S3 Image Demo</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>ECS S3 Image Demo</h1>
+        <p>Utilizing Spring Boot and the AWS SDK for Java</p>
+    </div>
+
+    <div class="page-header">
+        <h1>Choose a Sample</h1>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-7">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Sample Name</th>
+                    <th>Sample Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sample: ${samples}">
+                    <td><a th:href="${sample.samplePath}"><span th:text="${sample.sampleName}"/></a></td>
+                    <td><span th:text="${sample.sampleDescription}"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5">
+            <p>Each sample has two links: your version of the sample, and the &quot;solution&quot; that is a
+                fully-functional version of the sample. When you checkout the code, your version will
+                <em>not</em> work. You must first edit the code to add the appropriate storage logic. If you simply
+                want to check out the samples, please proceed directly to the &quot;solution&quot; versions.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</body>
+</html>

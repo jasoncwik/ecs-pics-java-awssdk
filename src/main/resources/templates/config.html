@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ECS Configuration</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>Set ECS Configuration</h1>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Parameter Name</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <form action="/configure" method="post">
+                    <tr>
+                        <td><label for="endpoint">Endpoint: </label></td>
+                        <td><input type="text" id="endpoint" name="endpoint" th:value="${config.endpoint}"/></td>
+                        <td><p>Endpoint to your ECS server. This should be a full URI, e.g.
+                            "https://object.ecstestdrive.com", or "http://10.1.83.51:9020".</p></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="access-key">Access Key: </label></td>
+                        <td><input type="text" id="access-key" name="access-key" th:value="${config.accessKey}"/></td>
+                        <td><p>Your S3 access key to use for the connection.  On ECS this is also known as your
+                        object user.</p></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="secret-key">Endpoint: </label></td>
+                        <td><input type="password" id="secret-key" name="secret-key" th:value="${config.secretKey}"/></td>
+                        <td><p>Secret key for your access key.</p></td>
+                    </tr>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</body>
+</html>
