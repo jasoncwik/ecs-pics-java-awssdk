@@ -1,6 +1,8 @@
 package com.dellemc.ecs.samples.ecspicsaws.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.dellemc.ecs.samples.ecspicsaws.model.EcsConfiguration;
+import com.dellemc.ecs.samples.ecspicsaws.util.S3Factory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -63,7 +65,16 @@ public class ConfigurationController {
         EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
         config.setConfiguration(endpoint, accessKey, secretKey, bucketName);
 
-        attrs.addAttribute("message", "Configuration Updated.");
+        StringBuilder message = new StringBuilder();
+        message.append("Configuration Updated.");
+
+        AmazonS3 s3 = S3Factory.getInstance().getClient(config);
+        if(!s3.doesBucketExist(bucketName)) {
+            s3.createBucket(bucketName);
+            message.append(" Created bucket " + bucketName);
+        }
+
+        attrs.addAttribute("message", message.toString());
 
         // Stash it into a cookie for next time the app is run.
         Cookie c = new Cookie("config-cookie", config.toCookie());

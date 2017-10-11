@@ -7,6 +7,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.S3ClientOptions;
 import com.dellemc.ecs.samples.ecspicsaws.model.EcsConfiguration;
 
 import java.util.Map;
@@ -49,6 +50,9 @@ public class S3Factory {
         AmazonS3 client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(creds))
                 .withEndpointConfiguration(ec)
+                // Path-style access is preferred for ECS since it doesn't require wildcard
+                // certificates and virtual host names.
+                .withPathStyleAccessEnabled(true)
                 .build();
 
         // cache it
