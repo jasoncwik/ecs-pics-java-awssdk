@@ -17,6 +17,14 @@
 </head>
 <body>
 <div class="container">
+    <div class="alert alert-danger" th:unless="${error} == ''">
+        <span th:text="${error}"/>
+    </div>
+
+    <div class="alert alert-info" th:unless="${message} == ''">
+        <span th:text="${message}"/>
+    </div>
+
     <div class="jumbotron">
         <h1>ECS S3 Image Demo</h1>
         <p>Utilizing Spring Boot and the AWS SDK for Java</p>

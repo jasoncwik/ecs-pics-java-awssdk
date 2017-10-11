@@ -6,10 +6,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +30,9 @@ public class ConfigurationController {
      */
     @RequestMapping(path = "/configure")
     public String loadConfiguration(Model model, HttpSession session,
-                                    @CookieValue(value = "config-cookie", defaultValue = "") String configCookie) {
+                                    @CookieValue(value = "config-cookie", defaultValue = "") String configCookie,
+                                    @ModelAttribute("message") String message,
+                                    @ModelAttribute("error") String error) {
 
         EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
         if(config == null) {
@@ -56,13 +56,14 @@ public class ConfigurationController {
     public String updateConfiguration(@RequestParam("endpoint") String endpoint,
                                       @RequestParam("access-key") String accessKey,
                                       @RequestParam("secret-key") String secretKey,
+                                      @RequestParam("bucket-name") String bucketName,
                                       HttpSession session,
-                                      Model model,
+                                      RedirectAttributes attrs,
                                       HttpServletResponse response) {
         EcsConfiguration config = (EcsConfiguration) session.getAttribute("config");
-        config.setConfiguration(endpoint, accessKey, secretKey);
+        config.setConfiguration(endpoint, accessKey, secretKey, bucketName);
 
-        model.addAttribute("message", "Configuration Updated.");
+        attrs.addAttribute("message", "Configuration Updated.");
 
         // Stash it into a cookie for next time the app is run.
         Cookie c = new Cookie("config-cookie", config.toCookie());

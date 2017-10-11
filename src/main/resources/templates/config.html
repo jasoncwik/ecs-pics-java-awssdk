@@ -17,6 +17,14 @@
 </head>
 <body>
 <div class="container">
+    <div class="alert alert-danger" th:unless="${error} == ''">
+        <span th:text="${error}"/>
+    </div>
+
+    <div class="alert alert-info" th:unless="${message} == ''">
+        <span th:text="${message}"/>
+    </div>
+
     <div class="page-header">
         <h1>Set ECS Configuration</h1>
     </div>
@@ -52,6 +60,12 @@
                     <tr>
                         <td><label for="secret-key">Endpoint: </label></td>
                         <td><input type="password" id="secret-key" name="secret-key" th:value="${config.secretKey}"/></td>
+                        <td><p>Secret key for your access key.</p></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="bucket-name">Endpoint: </label></td>
+                        <td><input type="text" id="bucket-name" name="bucket-name" th:value="${config.bucketName}"/></td>
                         <td><p>Secret key for your access key.</p></td>
                     </tr>
 

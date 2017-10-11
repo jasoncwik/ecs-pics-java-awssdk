@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,7 +28,9 @@ public class MainController {
      * and the path to the sample controller.
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model,
+                        @ModelAttribute("message") String message,
+                        @ModelAttribute("error") String error) {
 
         List<SamplePage> samples = new ArrayList<>();
         samples.add(new SamplePage("Configure ECS Connection",
@@ -36,6 +39,8 @@ public class MainController {
         samples.add(new SamplePage("Sample 1 Solution", "Uploads a file to ECS", "/sample1sol"));
 
         model.addAttribute("samples", samples);
+
+        log.info("model: " + model);
 
         return "index";
     }
