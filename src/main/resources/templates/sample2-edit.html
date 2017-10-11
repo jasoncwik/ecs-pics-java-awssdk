@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ECS S3 Image Demo</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="/css/custom.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="alert alert-danger" th:unless="${error} == ''">
+        <span th:text="${error}"/>
+    </div>
+
+    <div class="alert alert-info" th:unless="${message} == ''">
+        <span th:text="${message}"/>
+    </div>
+
+    <div class="page-header">
+        <h1>Sample 2: Image Edit</h1>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-7">
+            <img th:src="${imageUrl}"/>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Metadata Name</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form th:action="${target}" method="post">
+                <tr>
+                    <td><label for="contentType">Content Type: </label></td>
+                    <td><input type="text" id="contentType" name="contentType" th:value="${contentType}"/></td>
+                </tr>
+
+                <tr>
+                    <td><label for="photographer">Photographer: </label></td>
+                    <td><input type="text" id="photographer" name="photographer" th:value="${photographer}"/></td>
+                </tr>
+
+                <tr>
+                    <td><label for="city">City: </label></td>
+                    <td><input type="text" id="city" name="city" th:value="${city}"/></td>
+                </tr>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="/js/jquery-3.2.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+</body>
+</html>

@@ -37,6 +37,8 @@ public class MainController {
                 "Configure your connection to ECS. Run me first!", "/configure"));
         samples.add(new SamplePage("Sample 1", "Uploads a file to ECS", "/sample1"));
         samples.add(new SamplePage("Sample 1 Solution", "Uploads a file to ECS", "/sample1sol"));
+        samples.add(new SamplePage("Sample 2", "Edits an object's metadata", "/sample2"));
+        samples.add(new SamplePage("Sample 2 Solution", "Edits and object's metadata", "/sample2sol"));
 
         model.addAttribute("samples", samples);
 
