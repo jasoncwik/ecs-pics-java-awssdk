@@ -58,15 +58,15 @@
                     </tr>
 
                     <tr>
-                        <td><label for="secret-key">Endpoint: </label></td>
+                        <td><label for="secret-key">Secret Key: </label></td>
                         <td><input type="password" id="secret-key" name="secret-key" th:value="${config.secretKey}"/></td>
                         <td><p>Secret key for your access key.</p></td>
                     </tr>
 
                     <tr>
-                        <td><label for="bucket-name">Endpoint: </label></td>
+                        <td><label for="bucket-name">Bucket Name: </label></td>
                         <td><input type="text" id="bucket-name" name="bucket-name" th:value="${config.bucketName}"/></td>
-                        <td><p>Secret key for your access key.</p></td>
+                        <td><p>Name of the bucket to use.  If it does not exist, we will attempt to create it.</p></td>
                     </tr>
 
                     <button type="submit" class="btn btn-primary">Update</button>
